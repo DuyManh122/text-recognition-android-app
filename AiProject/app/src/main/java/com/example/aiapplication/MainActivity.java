@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView resultTextView;
     private ImageView inputImageView;
-    Button buttonImage, buttonCropImage, buttonProcessText;
+    Button buttonImage, buttonCropImage, buttonProcessText, ButtonRewrite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         buttonImage  = findViewById(R.id.ButtonImage);
         buttonCropImage = findViewById(R.id.ButtonCropImage);
         buttonProcessText = findViewById(R.id.ButtonProcessText);
+        ButtonRewrite = findViewById(R.id.ButtonRewrite);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -75,6 +76,12 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(this, "Please select an image first", Toast.LENGTH_SHORT).show();
             }
+        });
+        ButtonRewrite.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+            intent.putExtra("detected_text", resultTextView.getText().toString());
+            startActivity(intent);
+
         });
     }
 

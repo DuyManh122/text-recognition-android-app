@@ -6,13 +6,19 @@ android {
     namespace 'com.example.aiapplication'
     compileSdk 35
 
+    def apiKey = project.rootProject.file("local.properties")
+            .readLines()
+            .find { it.startsWith("GEMINI_API_KEY=") }
+            ?.split("=")[1]
+
+
     defaultConfig {
         applicationId "com.example.aiapplication"
         minSdk 26
         targetSdk 35
         versionCode 1
         versionName "1.0"
-
+        buildConfigField "String", "GEMINI_API_KEY", "\"${apiKey}\""
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -31,6 +37,8 @@ android {
 dependencies {
     implementation 'com.google.mlkit:text-recognition:16.0.0'
     implementation 'com.github.yalantis:ucrop:2.2.8'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
+    implementation 'org.json:json:20210307'
     implementation libs.appcompat
     implementation libs.material
     implementation libs.activity
